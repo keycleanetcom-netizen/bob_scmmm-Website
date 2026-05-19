@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bob_scmm | Brawl stars Era</title>
+    <style>
+        /* FARB-DEFINITIONEN */
+        :root {
+            --bg-color: #2e0c0c;
+            --text-main: #e1e0e0;
+            --text-gray: #ffffff;
+            --card-bg: #481010;
+            --card-border: #370000;
+            --btn-bg: #220c0c;
+            --btn-text: #000000;
+            --switch-border: #333;
+            --glow-color: rgba(255, 255, 255, 0.12);
+        }
+
+        body.light-mode {
+            --bg-color: #8e5e5e;
+            --text-main: #1d1d1f;
+            --text-gray: #ffffff;
+            --card-bg: #ffffff;
+            --card-border: #d2d2d7;
+            --btn-bg: #000000;
+            --btn-text: #ffffff;
+            --switch-border: #9e9c9c;
+            --glow-color: rgba(255, 0, 0, 0.05);
+        }
+
+        html {
+            scroll-behavior: smooth; /* Sorgt für das sanfte Runterscrollen */
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        /* MOUSE GLOW */
+        .cursor-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--glow-color) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+        header, main, section, footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        .logo { font-weight: 800; letter-spacing: 2px; font-size: 1.2rem; }
+
+        .controls { display: flex; gap: 15px; align-items: center; }
+
+        .mode-toggle, .lang-switch {
+            border: 1px solid var(--switch-border);
+            border-radius: 5px;
+            display: flex;
+            overflow: hidden;
+            background: var(--card-bg);
+        }
+
+        .mode-toggle button, .lang-switch span {
+            padding: 5px 12px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+            background: transparent;
+            color: var(--text-gray);
+            border: none;
+        }
+
+        .lang-switch span.active, .mode-toggle button.active {
+            background: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        /* Hero Section */
+        .hero { text-align: center; max-width: 800px; padding: 100px 20px; }
+        
+        .badge {
+            display: inline-block;
+            border: 1px solid var(--switch-border);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            background: var(--card-bg);
+        }
+
+        h1 { font-size: clamp(2.5rem, 8vw, 5rem); margin: 0; letter-spacing: 5px; }
+
+        .subtitle { color: var(--text-gray); font-size: 1.1rem; line-height: 1.6; margin: 20px 0 40px 0; }
+
+        .main-btn {
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            text-decoration: none;
+            padding: 15px 40px;
+            font-weight: bold;
+            border-radius: 5px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .main-btn:hover { transform: scale(1.05); }
+
+        /* Grid System */
+        section {
+            width: 100%;
+            max-width: 1100px;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 35px;
+            border-radius: 15px;
+            transition: 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card:hover { border-color: var(--text-gray); transform: translateY(-5px); }
+
+        .card h3 { margin-top: 0; font-size: 1rem; letter-spacing: 1px; }
+
+        .card p { color: var(--text-gray); font-size: 0.9rem; line-height: 1.6; }
+
+        /* Social Icons */
+        .social-card { display: flex; align-items: center; gap: 20px; }
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--text-main);
+            color: var(--bg-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            width: 100%;
+            padding: 60px 20px;
+            border-top: 1px solid var(--card-border);
+            text-align: center;
+            margin-top: 60px;
+            color: var(--text-gray);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor-glow" id="glow"></div>
+
+    <header>
+        <div class="logo">bob_scmm</div>
+        <div class="controls">
+            <div class="mode-toggle">
+                <button id="dark-btn" class="active" onclick="setMode('dark')">Dark</button>
+                <button id="light-btn" onclick="setMode('light')">Light</button>
+            </div>
+            <div class="lang-switch">
+                <span id="btn-de" class="active" onclick="switchLang('de')">DE</span>
+                <span id="btn-en" onclick="switchLang('en')">EN</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="hero">
+        <div class="badge" data-key="badge">BRAWL STARS ON TOP !!</div>
+        <h1 data-key="title">bob_scmm</h1>
+        <p class="subtitle" data-key="subtitle">Wir definieren die Grenzen des Möglichen neu. Die brawl stars community liefert die Technologie, du lieferst die Skills.</p>
+        <a href="#content" class="main-btn" data-key="button">WEITERE INFOS</a>
+    </main>
+
+    <section id="content">
+        <div class="grid">
+            <div class="card">
+                <h3 data-key="about-title">ÜBER UNS</h3>
+                <p data-key="about-text">Also ich bin bob code gerne websiten und bin supercell creator !</p>
+            </div>
+            <div class="card">
+                <h3 data-key="why-title">WARUM bob_scmm</h3>
+                <p data-key="why-text">Ich hatte den name als idee bob und dachte ich scmm passt !.</p>
+            </div>
+            <div class="card">
+                <h3 data-key="comm-title">COMMUNITY</h3>
+                <p data-key="comm-text">Werde Teil der bob:scmm-Community und gestalte die Zukunft mit uns. Gemeinsam erreichen wir mehr.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title" data-key="social-title">FOLGE UNS</h2>
+        <div class="grid">
+            <a href="https://discord.gg/srC9Uefdzk" class="card social-card" target="_blank">
+                <div class="social-icon">DC</div>
+                <div>
+                    <h4 style="margin:0">Discord</h4>
+                    <p style="margin:5px 0 0 0; font-size:0.8rem">Join the server</p>
+                </div>
+            </a>
+            <a href="https://www.youtube.com/@bob_scmm" class="card social-card" target="_blank">
+                <div class="social-icon">YT</div>
+                <div>
+                    <h4 style="margin:0">YouTube</h4>
+                    <p style="margin:5px 0 0 0; font-size:0.8rem">Watch our videos</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 bob_scmm. Alle Rechte vorbehalten.
+        Bei problemen Im discord melden</p>
+    </footer>
+
+    <script>
+        // MOUSE GLOW LOGIK
+        const glow = document.getElementById('glow');
+        window.addEventListener('mousemove', (e) => {
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        });
+
+        // MODUS LOGIK
+        function setMode(mode) {
+            const body = document.body;
+            if (mode === 'light') {
+                body.classList.add('light-mode');
+                document.getElementById('light-btn').classList.add('active');
+                document.getElementById('dark-btn').classList.remove('active');
+            } else {
+                body.classList.remove('light-mode');
+                document.getElementById('dark-btn').classList.add('active');
+                document.getElementById('light-btn').classList.remove('active');
+            }
+        }
+
+        // SPRACH LOGIK
+        const translations = {
+            de: {
+                "badge": "EINE NEUE ÄRA DES GAMINGS",
+                "title": "Bob_scmm",
+                "subtitle": "Wir definieren die Grenzen des Möglichen neu. Die bob_scmm liefert die Technologie, du lieferst die Skills.",
+                "button": "WEITERE INFOS",
+                "about-title": "ÜBER UNS",
+                "about-text": "bin bob und code gerne und spiele gerne",
+                "why-title": "WARUM bob_scmm",
+                "why-text": "Ich hatte den name einfach so als idee .",
+                "comm-title": "COMMUNITY",
+                "comm-text": "Werde Teil der bob-Community und gestalte die Zukunft mit uns. Gemeinsam erreichen wir mehr.",
+                "social-title": "FOLGE UNS"
+            },
+            en: {
+                "badge": "A NEW ERA OF GAMING",
+                "title": "Bob_Scmm",
+                "subtitle": "We redefine the boundaries of what is possible. bob_scmmm provides the technology, you provide the skills.",
+                "button": "MORE INFO",
+                "about-title": "ABOUT US",
+                "about-text": "im bob and i play and code ",
+                "why-title": "WHY bob_scmm",
+                "why-text": "i the name bob_scmm was a idee !.",
+                "comm-title": "COMMUNITY",
+                "comm-text": "Become part of the bob_scmm community and shape the future with us.",
+                "social-title": "FOLLOW US"
+            }
+        };
+
+        function switchLang(lang) {
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    element.innerText = translations[lang][key];
+                }
+            });
+            document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+        }
+    </script>
+</body>
+</html>

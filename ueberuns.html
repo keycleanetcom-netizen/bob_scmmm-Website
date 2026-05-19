@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Über Uns - bob_scmmy</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Zusätzliches Design passend zu deinem Screenshot */
+        :root {
+            --bg-dark: #000000;
+            --text-gray: #888;
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: white;
+            font-family: sans-serif;
+            margin: 0;
+            text-align: center;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+        }
+        .logo { font-weight: bold; letter-spacing: 2px; }
+        
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+
+        .lang-switch {
+            border: 1px solid #333;
+            border-radius: 5px;
+            display: flex;
+            cursor: pointer;
+        }
+        .lang-switch span {
+            padding: 5px 10px;
+            font-size: 12px;
+            color: #555;
+        }
+        .lang-switch span.active {
+            background: white;
+            color: black;
+        }
+
+        .back-link {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .hero { padding: 100px 20px; }
+        h1 { font-size: 3.5rem; letter-spacing: 8px; margin-bottom: 20px; text-transform: uppercase; }
+        .subtitle { color: var(--text-gray); max-width: 700px; margin: 0 auto 50px auto; line-height: 1.6; }
+
+        .card {
+            background: #050505;
+            border: 1px solid #1a1a1a;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+            color: var(--text-gray);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">RETOX</div>
+        <div class="nav-right">
+            <div class="lang-switch">
+                <span id="btn-de" class="active" onclick="switchLang('de')">DE</span>
+                <span id="btn-en" onclick="switchLang('en')">EN</span>
+            </div>
+            <a href="index.html" class="back-link">← ZURÜCK</a>
+        </div>
+    </header>
+
+    <main class="hero">
+        <h1 data-key="about-title">ÜBER UNS</h1>
+        <p class="subtitle" data-key="about-subtitle">
+            Hier erfährst du alles über die Founder Rene und Tobi und unsere Vision. 
+            Wir sind ein Team, das Qualität und Spaß an oberster Stelle setzt.
+        </p>
+
+        <div class="card">
+            <p data-key="card-text">Wir coden Plugins, Webseiten, Bots und vieles mehr...</p>
+        </div>
+    </main>
+
+    <script>
+        const translations = {
+            de: {
+                "about-title": "ÜBER UNS",
+                "about-subtitle": "Hier erfährst du alles über die Founder Rene und Tobi und unsere Vision. Wir sind ein Team, das Qualität und Spaß an oberster Stelle setzt.",
+                "card-text": "Wir coden Plugins, Webseiten, Bots und vieles mehr..."
+            },
+            en: {
+                "about-title": "ABOUT US",
+                "about-subtitle": "Here you can learn everything about the founders Rene and Tobi and our vision. We are a team that puts quality and fun first.",
+                "card-text": "We code plugins, websites, bots and much more..."
+            }
+        };
+
+        function switchLang(lang) {
+            // Texte anpassen
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    element.innerText = translations[lang][key];
+                }
+            });
+
+            // Button-Styling anpassen
+            document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+        }
+    </script>
+
+</body>
+</html>
